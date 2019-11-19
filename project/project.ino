@@ -49,10 +49,15 @@ Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
 
 void authorize(){
-  
+   lcd.clear();
+   lcd.setCursor(0,0);
+   lcd.print("Authorized!");
+   delay(5000);
+   reset();
 }
 
 void reset(){
+  lcd.clear();
   input = "";
   authorized = false;
    lcd.clear();
@@ -71,6 +76,10 @@ void enter(){
   if(input == password){
     authorize();
     }else{
+      lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print("Wrong password!");
+      delay(5000);
       reset();
       }
  }
@@ -83,7 +92,9 @@ void setup(){
    delay(1000);
    lcd.clear();
    lcd.setCursor(0,0);
-   lcd.print("By Alex, Nico and Pedro");
+   lcd.print("By Alex, Nico");
+   lcd.setCursor(0,1);
+   lcd.print("and Pedro");
    delay(2000);
     reset();
 }
@@ -113,11 +124,13 @@ void loop(){
    if (key){
     if(key == '*'){
       enter();
-    }
-    
-    Serial.println(key);
+    }else{
+          Serial.println(key);
     input.concat(key);
     lcd.print(key);
+      }
+    
+
   } 
   
   // this checkes if 4 is pressed, then do something. Here  we print the text but you can control something.
